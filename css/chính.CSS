@@ -1862,3 +1862,10 @@ header button,
     letter-spacing: 1px !important;
     padding: 18px 30px !important;    /* Làm nút to dầy lên cho sang trọng */
 }
+.footer-grid iframe{
+    width:100%;
+    max-width:300px;
+    height:180px;
+    border:none;
+    border-radius:12px;
+}
