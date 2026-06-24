@@ -1,0 +1,1863 @@
+:root {
+    --primary-deep: #58161A;     /* Màu đỏ đậm vỏ hũ mặt nạ */
+    --primary-accent: #8E2931;   /* Màu dải sóng lượn từ banner */
+    --bg-organic: oklch(var(--background-100) / var(--tw-bg-opacity, 1));       /* Màu kem gạo tự nhiên sang trọng */
+    --text-dark: #2C2520;
+    /* --text-dark: #2C2520; */
+    --text-muted: #6B5E53;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-organic);
+    color: var(--text-dark);
+    overflow-x: hidden;
+}
+
+h1, h2, h3 {
+    font-family: 'Noto Serif', serif;
+    font-weight: 700;
+}
+
+/* 1. Màn hình chào tải trang nghệ thuật (Cinematic Preloader) */
+/* ==========================================================================
+   MÀN HÌNH CHÀO MÀU BE: TẢI XONG - KHÓA CHỜ - NHẢY TRANG CHÍNH ĐỘT NGỘT
+   ========================================================================= */
+/* ==========================================================================
+   1. MÀN HÌNH CHÀO NGHỆ THUẬT (CINEMATIC PRELOADER) - ĐÃ CẬP NHẬT ĐẨY LÊN
+   ========================================================================= */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #FDFBF7; /* Ép cứng màu nền be gạo sang trọng */
+    z-index: 99999; /* Đảm bảo nằm trên cùng tuyệt đối */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    /* Tạo hiệu ứng chuyển động mượt mà khi hiệu ứng đẩy lên được kích hoạt */
+    transition: transform 1s cubic-bezier(0.85, 0, 0.15, 1), opacity 1s ease;
+}
+
+/* Class này sẽ được JS thêm vào sau khi trang load xong */
+#preloader {
+    /* ... giữ nguyên các thuộc tính khác ... */
+    transition: transform 0.8s cubic-bezier(0.85, 0, 0.15, 1), opacity 0.8s ease;
+}
+
+.preloader-brand {
+    font-family: 'Noto Serif', serif;
+    font-size: 26px;
+    letter-spacing: 5px;
+    color: var(--primary-deep); /* Màu đỏ đậm Huyền Sa */
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    /* Chữ hiện hình thong thả trong 1.5 giây */
+    animation: brandFadeInUp 1.0s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.preloader-bar-wrap {
+    width: 180px;
+    height: 2px;
+    background-color: #EAE3D8; /* Nền thanh rail màu be nhạt */
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+}
+
+.preloader-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary-deep); /* Màu nâu đỏ */
+    
+    /* Sử dụng transform giúp tận dụng phần cứng của máy, chạy cực kỳ mượt */
+    transform: translateX(-100%);
+    
+    /* 1.4 giây cho một chu kỳ lướt, dùng hệ số cubic-bezier chuẩn giúp thanh chuyển động tự nhiên */
+    animation: loadingProgress 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Khung chuyển động tối ưu bằng transform */
+@keyframes loadingProgress {
+    0% {
+        transform: translateX(-100%);
+    }
+    50% {
+        transform: translateX(0); /* Đầy thanh */
+    }
+    100% {
+        transform: translateX(100%); /* Chạy tuột hẳn ra ngoài để lặp lại */
+    }
+}
+/* 2. Thanh Menu Điều Hướng (Navigation Bar) */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* padding: 20px 6%; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 999;
+    
+    /* CHỈNH MÀU BE ĐẶC (Dùng trực tiếp biến màu hữu cơ của bạn) */
+    background-color: #ffffff;
+    /* Thêm một chút đổ bóng nhẹ bên dưới để tách biệt menu với nội dung bên dưới */
+    box-shadow: 0 2px 10px rgba(88, 22, 26, 0.05); 
+    
+    transition: all 0.3s ease;
+}
+
+header .logo img {
+    height: 90px;          /* Tăng nhẹ chiều cao trần */
+    width: auto;           
+    object-fit: contain;   
+    
+    /* 🚀 MẸO PHÓNG TO: Nhân bản kích thước hiển thị của logo lên 1.3 hoặc 1.5 lần */
+    transform: scale(1.1); 
+    
+    /* Tạo chút khoảng cách hai bên phòng trường hợp logo phóng to đè vào chữ khác */
+    margin: 0 15px;    
+        
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 35px;
+}
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.3s;
+    position: relative;
+}
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background-color: var(--primary-accent);
+    transition: width 0.3s ease;
+}
+.nav-links a:hover::after {
+    width: 100%;
+}
+.nav-links a:hover {
+    color: var(--primary-accent);
+}
+
+/* 3. Phần Banner Đại Diện (Hero Section) chứa bối cảnh An Giang */
+.hero-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 8% 60px 8%; /* Tăng padding top để không bị đè bởi Header cố định */
+    overflow: hidden;
+}
+.hero-bg-media {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    background-image: linear-gradient(to right,rgba(253,251,247,0.6) 35%, rgba(253,251,247,0.2) 70%, rgba(253,251,247,0.05) 100%), 
+                      url(../image/2.jpg);
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.05);
+}
+
+.hero-text-container {
+    max-width: 580px;
+    z-index: 2;
+}
+.hero-tag {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: var(--primary-accent);
+    margin-bottom: 20px;
+    display: block;
+}
+.hero-text-container h1 {
+    font-size: 52px;
+    color: var(--primary-deep);
+    line-height: 1.25;
+    margin-bottom: 25px;
+}
+.hero-text-container p {
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 40px;
+}
+
+.btn-discover {
+    display: inline-block;
+    padding: 16px 36px;
+    background-color: var(--primary-deep);
+    color: #FFF;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 10px 20px rgba(88,22,26,0.15);
+    transition: all 0.4s ease;
+}
+.btn-discover:hover {
+    background-color: var(--primary-accent);
+    transform: translateY(-4px);
+    box-shadow: 0 15px 25px rgba(88,22,26,0.25);
+}
+
+/* Lớp tương tác các hạt gạo lứt rơi nhẹ nhàng */
+.rice-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+.rice-particle {
+    position: absolute;
+    width: 6px;
+    height: 14px;
+    background-color: #721C24;
+    border-radius: 50% 50% 45% 45%;
+    opacity: 0.5;
+}
+
+
+/* 4. Khối 3 Công Dụng Sản Phẩm (Features Content) */
+.features-section {
+    padding: 100px 8%;
+    background-color: oklch(.97 .01 85 / 1);
+    position: relative;
+    text-align: center;
+}
+.features-head {
+    font-size: 34px;
+    color: var(--primary-deep);
+    margin-bottom: 60px;
+    position: relative;
+}
+.features-head::after {
+    content: '';
+    width: 50px;
+    height: 1.5px;
+    background-color: var(--primary-accent);
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Đổi sang Grid để tự động tính toán co giãn linh hoạt nhất trên Laptop */
+.cards-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 35px;
+    max-width: 1140px;
+    margin: 0 auto;
+}
+.card-box {
+    background-color: var(--bg-organic);
+    padding: 10px 10px;
+    border-radius: 8px;
+    border: 1px solid #EFEAE2;
+   
+    cursor: pointer;
+}
+.card-box:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary-accent);
+    box-shadow: 0 20px 40px rgba(88,22,26,0.05);
+}
+
+.icon-circle {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: #FFFFFF;
+    color: var(--primary-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin: 0 auto 25px auto;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.02);
+    transition: all 0.5s ease;
+}
+.card-box:hover .icon-circle {
+    background-color: var(--primary-deep);
+    color: #FFFFFF;
+    transform: scale(1.05) rotateY(180deg);
+}
+
+.card-box h3 {
+    font-size: 20px;
+    color: var(--primary-deep);
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+}
+.card-box p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   5. RESPONSIVE MEDIA QUERIES (TỐI ƯU HOÀN TOÀN CHO ĐIỆN THOẠI & LAPTOP NHỎ)
+   ========================================================================== */
+
+/* Cho màn hình Laptop vừa và nhỏ (< 1200px) */
+@media (max-width: 1200px) {
+    .hero-text-container h1 {
+        font-size: 42px;
+    }
+}
+
+/* Cho màn hình Máy tính bảng và Di động lớn (< 991px) */
+/* ==========================================================================
+   SỬA LỖI MENU: TRẢI DÀI TRÊN PC - GOM GỌN VÀO 3 SỌC TRÊN MOBILE
+   ========================================================================== */
+
+/* Mặc định trên Máy tính: HIỆN MENU NGANG, ẨN 3 SỌC */
+.menu-toggle {
+    display: none; /* Giấu nút 3 sọc trên PC */
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 5px;
+}
+.menu-toggle span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--primary-deep, #58161A);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+
+/* KHI XEM TRÊN ĐIỆN THOẠI & TABLET (< 991px) */
+@media (max-width: 991px) {
+    
+    /* 1. BẬT NÚT 3 SỌC HIỆN LÊN */
+    .menu-toggle {
+        display: flex !important; /* Ép buộc xuất hiện trên mobile */
+    }
+
+    /* 2. ÉP MENU NGANG BIẾN MẤT VÀ BIẾN THÀNH MENU THẢ XUỐNG CỦA 3 SỌC */
+    .nav-links {
+        display: flex !important; /* Giữ cấu trúc flex */
+        flex-direction: column !important; /* Xếp dọc các chữ lại */
+        position: absolute;
+        top: 100%; /* Nằm sát ngay dưới đáy thanh header */
+        left: 0;
+        width: 100%;
+        background-color: #ffffff;
+        gap: 0 !important; /* Xóa khoảng cách cũ trên PC */
+        padding: 0;
+        box-shadow: 0 10px 15px rgba(88, 22, 26, 0.08);
+        
+        /* HIỆU ỨNG ẨN GIẤU: Mặc định giấu toàn bộ chữ vào trong nút 3 sọc */
+        max-height: 0 !important; 
+        overflow: hidden;
+        transition: max-height 0.4s ease-in-out;
+    }
+
+    /* 3. KHI BẤM VÀO 3 SỌC (CÓ CLASS .ACTIVE): MENU SẼ XỔ XUỐNG VỪA KHÍT */
+    .nav-links.active {
+        max-height: 320px !important; /* Chiều cao vừa vặn cho các dòng chữ menu */
+    }
+
+    /* Căn chỉnh chữ menu trên điện thoại cho đẹp */
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+    }
+    .nav-links a {
+        display: block;
+        padding: 15px 0;
+        border-bottom: 1px solid #FDFBF7; /* Đường gạch chân nhẹ giữa các mục */
+        font-size: 16px;
+    }
+    
+    /* 4. HIỆU ỨNG XOAY NÚT 3 SỌC THÀNH DẤU X KHI MỞ MENU */
+    .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+    }
+}
+
+/* Tối ưu hóa tuyệt đối cho Điện thoại di động (< 768px) */
+@media (max-width: 768px) {
+    
+    .hero-section {
+        justify-content: center;
+        text-align: center;
+        min-height: 100vh;
+        height: auto;
+    }
+    /* Chuyển dải gradient từ dạng Đứng (Trái -> Phải) sang Ngang (Trên -> Dưới) 
+       để text căn giữa trên điện thoại dễ đọc, không bị chói nền lúa */
+    .hero-bg-media {
+        background-image: linear-gradient(to bottom, rgba(253,251,247,0.3) 0%, rgba(253,251,247,0.3) 50%, rgba(253,251,247,0.1) 100%), 
+                          url(../image/2.jpg);
+                          
+    }
+    .hero-text-container {
+        max-width: 100%;
+    }
+    .hero-tag {
+        font-size: 11px;
+        letter-spacing: 3px;
+        margin-bottom: 15px;
+    }
+    .hero-text-container h1 {
+        font-size: 28px;
+        line-height: 1.3;
+        margin-bottom: 20px;
+    }
+    .hero-text-container p {
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+    .btn-discover {
+        padding: 14px 30px;
+        font-size: 14px;
+        width: 100%; /* Cho nút bấm full chiều ngang trên điện thoại giúp dễ bấm */
+        max-width: 280px;
+    }
+    .features-section {
+        padding: 60px 24px;
+    }
+    /* Biến 3 ô tính năng xếp dọc thẳng hàng tăm tắp */
+    .cards-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .card-box {
+        padding: 35px 20px;
+    }
+}
+
+/* Responsive di động */
+@media (max-width: 991px) {
+    .cards-layout {
+        flex-direction: column;
+        gap: 25px;
+    }
+    .hero-section {
+        padding: 0 6%;
+    }
+    .hero-text-container h1 {
+        font-size: 36px;
+    }
+    .nav-links {
+        display: none;
+    }
+}
+/*css cart */
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.header-right i {
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.header-right .cart {
+    position: relative;
+}
+
+.header-right .cart span {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: #8c2d19;
+    color: #fff;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 50%;
+  
+}
+
+.header-right button {
+    background-color: #8c2d19;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.header-right button:hover {
+    background-color: #5c1d0f;
+}
+
+/*end css cart */
+
+/* ==========================================================================
+   9. FOOTER (CHÂN TRANG)
+   ========================================================================== */
+footer {
+    background-color: #332a22;
+    color: #d1c7bd;
+    padding: 60px 8% 20px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr repeat(3, 1fr);
+    gap: 40px;
+    border-bottom: 1px solid #4a3f35;
+    padding-bottom: 40px;
+}
+
+footer h2 {
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+footer h3 {
+    color: #fff;
+    font-size: 16px;
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+footer p {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 13px;
+    color: #8c7e72;
+}
+/* ==========================================================================
+   BỔ SUNG CSS CHO THANH GỖ TREO ĐUNG ĐƯA (DÁN VÀO ĐÁY FILE CSS CỦA BẠN)
+   ========================================================================== */
+.wood-sign-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: -8px; /* Neo sát mép trên của thanh menu */
+    transform-origin: top center;
+    /* Tạo hiệu ứng lắc lư qua lại như biển treo thật */
+    animation: woodSwing 3.5s ease-in-out infinite alternate; 
+    z-index: 10;
+}
+
+/* Sợi dây thừng treo biển gỗ */
+.rope {
+    width: 0;
+    height: 0;
+    border-left: 18px solid transparent;
+    border-right: 18px solid transparent;
+    border-bottom: 20px solid #A68065; 
+    position: relative;
+}
+.rope::after {
+    content: '';
+    position: absolute;
+    left: -16px;
+    top: 2px;
+    width: 0;
+    height: 0;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    border-bottom: 18px solid #ffffff; /* Đục rỗng lỗ tam giác */
+}
+
+/* Khối bảng gỗ màu nâu */
+.wood-sign {
+    background: linear-gradient(135deg, #8A4F35 0%, #6E3B24 50%, #5C321E 100%);
+    padding: 6px 14px;
+    border-radius: 4px;
+    border: 2px solid #4A2514;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 125px;
+    text-align: center;
+}
+
+/* Chữ Giảm 30% */
+.sign-text {
+    font-family: 'Noto Serif', serif;
+    color: #FFFDEB;
+    font-size: 13px;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+    white-space: nowrap;
+}
+
+/* Chữ phụ bên dưới */
+.sign-subtext {
+    font-family: 'Inter', sans-serif;
+    color: #E6C5A8;
+    font-size: 8px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
+    margin-top: 2px;
+    white-space: nowrap;
+}
+
+/* Hiệu ứng đung đưa chuyển động */
+@keyframes woodSwing {
+    0% { transform: rotate(-3deg); }
+    100% { transform: rotate(3deg); }
+}
+
+/* Tự động thu nhỏ thanh gỗ lại khi xem trên điện thoại để không đè nút MUA NGAY */
+@media (max-width: 768px) {
+    .wood-sign-wrapper {
+        top: -4px;
+    }
+    .wood-sign {
+        min-width: 95px;
+        padding: 4px 8px;
+    }
+    .sign-text {
+        font-size: 11px;
+    }
+    .sign-subtext {
+        font-size: 7px;
+    }
+    .rope {
+        border-bottom: 14px solid #A68065;
+        border-left: 14px solid transparent;
+        border-right: 14px solid transparent;
+    }
+    .rope::after {
+        border-bottom: 12px solid #ffffff;
+        left: -12px;
+    }
+}
+/* ==========================================================================
+   HIỆU ỨNG ĐỔI MÀU SÁNG KHI TRỎ CHUỘT VÀO BẢNG GỖ
+   ========================================================================== */
+.wood-sign-wrapper:hover .wood-sign {
+    /* 1. Đổi dải màu nền gỗ sang tone nâu sáng và ấm hơn */
+    background: linear-gradient(135deg, #A86544 0%, #8A4F35 50%, #6E3B24 100%) !important;
+    
+    /* 2. Làm viền gỗ sáng lên */
+    border-color: #6E3B24 !important;
+    
+    /* 3. Tăng độ đổ bóng để tạo hiệu ứng bảng gỗ như được nhấc nổi lên gần người dùng hơn */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25), inset 0 1px 4px rgba(255, 255, 255, 0.4) !important;
+    
+    /* 4. Thêm hiệu ứng trỏ chuột biến thành hình bàn tay click */
+    cursor: pointer;
+}
+
+.wood-sign-wrapper:hover .sign-text {
+    /* 5. Chữ Giảm 30% phát sáng nhẹ bằng màu vàng ánh kim */
+    color: #FFFFFF !important;
+    text-shadow: 0 0 6px rgba(255, 251, 214, 0.8), 1px 1px 2px rgba(0, 0, 0, 0.8) !important;
+}
+
+.wood-sign-wrapper:hover .sign-subtext {
+    /* 6. Chữ phụ sáng lên màu kem */
+    color: #FFFDEB !important;
+}
+
+/* Tạo độ mượt chuyển động (Transition) khi rê chuột vào/ra không bị giật khựng */
+.wood-sign, .sign-text, .sign-subtext {
+    transition: all 0.3s ease-in-out !important;
+}
+/* ==========================================================================
+   BỔ SUNG HIỆU ỨNG CON TRỎ CHỈ TAY CHO NÚT MUA NGAY
+   ========================================================================== */
+.header-right button.btn-buy-now,
+.header-right .btn-buy-now {
+    cursor: pointer !important; /* Biến con trỏ chuột thành hình bàn tay chỉ vào */
+}
+/* ==========================================================================
+   CSS CHO KHUNG GIỎ HÀNG TRƯỢT TỪ PHẢI QUA
+   ========================================================================== */
+/* Bật con trỏ chỉ tay cho icon giỏ hàng cũ của bạn */
+.header-right .cart {
+    cursor: pointer !important;
+}
+
+/* Khung giỏ hàng ẩn mặc định nằm ngoài màn hình bên phải */
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -400px; /* Giấu sang phải */
+    width: 380px;
+    max-width: 100%;
+    height: 100vh;
+    background-color: #FDFBF7; /* Màu kem gạo hữu cơ cùng tone web của bạn */
+    box-shadow: -10px 0 30px rgba(88, 22, 26, 0.1);
+    z-index: 10000; /* Nằm đè lên tất cả mọi thứ kể cả header */
+    display: flex;
+    flex-direction: column;
+    transition: right 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); /* Hiệu ứng trượt êm ái */
+}
+
+/* Khi giỏ hàng có class .active sẽ kích hoạt trượt vào */
+.cart-sidebar.active {
+    right: 0;
+}
+
+/* Thanh đầu của giỏ hàng */
+.cart-sidebar-header {
+    padding: 24px;
+    border-bottom: 1px solid #EFEAE2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.cart-sidebar-header h3 {
+    font-family: 'Noto Serif', serif;
+    color: var(--primary-deep, #58161A);
+    font-size: 20px;
+}
+.close-cart {
+    font-size: 30px;
+    cursor: pointer;
+    color: var(--text-muted, #6B5E53);
+    line-height: 1;
+    transition: color 0.3s;
+}
+.close-cart:hover {
+    color: var(--primary-accent, #8E2931);
+}
+
+/* Vùng nội dung thông báo trống */
+.cart-sidebar-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    text-align: center;
+}
+.empty-cart-icon {
+    font-size: 50px;
+    color: #E6DCD0;
+    margin-bottom: 20px;
+}
+.cart-sidebar-content p {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: var(--text-muted, #6B5E53);
+    font-weight: 500;
+}
+
+/* Tối ưu hiển thị giỏ hàng trên điện thoại nhỏ */
+@media (max-width: 480px) {
+    .cart-sidebar {
+        width: 100%; /* Full màn hình luôn cho đẹp trên Mobile */
+        right: -100%;
+    }
+}
+/* ==========================================================================
+   CSS CHO NÚT TIẾP TỤC MUA SẮM TRONG GIỎ HÀNG
+   ========================================================================== */
+.btn-continue-shopping {
+    margin-top: 25px;
+    background-color: var(--primary-deep, #58161A); /* Đồng bộ màu đỏ đậm thương hiệu */
+    color: #FFFFFF;
+    border: none;
+    padding: 14px 28px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-radius: 25px; /* Bo viền tròn viên thuốc tinh tế */
+    box-shadow: 0 6px 15px rgba(88, 22, 26, 0.15);
+    cursor: pointer; /* Biến thành hình bàn tay chỉ vào */
+    transition: all 0.3s ease;
+}
+
+/* Hiệu ứng đổi màu nhẹ nhàng khi rê chuột vào nút */
+.btn-continue-shopping:hover {
+    background-color: var(--primary-accent, #8E2931); /* Chuyển sang tone đỏ sáng hơn tí */
+    transform: translateY(-2px); /* Nhấc nhẹ nút lên */
+    box-shadow: 0 8px 20px rgba(88, 22, 26, 0.25);
+}
+
+/* Hiệu ứng khi ấn đè chuột xuống nút */
+.btn-continue-shopping:active {
+    transform: translateY(0);
+}
+/* ==========================================================================
+   CSS KHỐI 3 HÌNH ẢNH CÔNG \DỤNG (ĐỒNG BỘ GIAO DIỆN HUYỀN SA)
+   ========================================================================== */
+
+/* 1. KHUNG CHỨA TOÀN BỘ PHẦN NÀY */
+.features-section {
+    background-color: #fff5e2; /* Màu nền kem gạo giống hệt ảnh mẫu */
+    padding: 80px 20px;        /* Tạo khoảng cách thoáng ở trên và dưới */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.features-container {
+    max-width: 800px;         /* Giới hạn độ rộng tối đa để không bị tràn màn hình lớn */
+    margin: 0 auto;            /* Căn giữa khối ra giữa màn hình */
+}
+
+/* 2. CĂN CHỈNH PHẦN CHỮ TIÊU ĐỀ */
+.features-title-block {
+    text-align: center;
+    margin-bottom: 5px;       /* Khoảng cách từ chữ xuống 3 cái ảnh */
+}
+
+.features-title-block .sub-title {
+    font-family: 'Inter', sans-serif;
+    color: oklch(0.75 0.15 55);            /* Màu vàng cam đất nhạt (DI SẢN THIÊN NHIÊN) */
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 3px;       /* Giãn cách các khoảng chữ ra rộng hơn */
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.features-title-block .main-title {
+    font-family: 'Noto Serif', 'Playfair Display', serif; /* Font chữ có chân sang trọng */
+    color: #2D221E;            /* Màu nâu đen mộc mạc */
+    font-size: 38px;
+    font-weight: 500;
+    line-height: 1.3;
+    margin: 0;
+}
+
+.features-title-block .highlight-text {
+    color: #8c2d19;            /* Màu hồng đỏ đất của chữ An Giang */
+}
+
+/* ==========================================================================
+   THU NHỎ 3 Ô BOX ẢNH CHO CÂN ĐỐI (ĐÃ FIX)
+   ========================================================================== */
+
+/* Giới hạn vùng chứa gom nhỏ lại một chút (từ 1200px xuống 1000px) */
+.features-container {
+    max-width: 1000px; /* Gom 3 ô xích lại gần nhau hơn, tạo khoảng trống 2 bên */
+    margin: 0 auto;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 24px; /* Giảm khoảng cách giữa các ô từ 30px xuống 24px cho gọn */
+}
+
+/* Định dạng ô box chứa ảnh */
+.card-box {
+    border-radius: 16px; /* Giảm độ bo góc từ 20px xuống 16px cho hợp với box nhỏ */
+    overflow: hidden;
+    background-color: #ffffff;
+    transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                box-shadow 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    cursor: pointer;
+    box-shadow: 0 10px 15px rgba(112, 111, 111, 0.15);
+}
+
+/* Hạ thấp chiều cao của tấm ảnh để ô ảnh trông nhỏ gọn, vừa mắt */
+.card-image-wrapper {
+    width: 100%;
+    height: 300px; /* Hạ từ 420px xuống 340px giúp box nhỏ lại rất nhiều */
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.card-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+
+/* ==========================================================================
+   TỰ ĐỘNG FIX KÍCH THƯỚC TRÊN MOBILE & TABLET
+   ========================================================================== */
+@media (max-width: 992px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    .card-image-wrapper {
+        height: 300px; /* Trên Tablet hạ xuống 300px */
+    }
+}
+
+@media (max-width: 768px) {
+    .features-grid {
+        grid-template-columns: 1fr; /* Điện thoại xếp dọc */
+        gap: 16px;
+        max-width: 320px; /* Giới hạn độ rộng của ô trên điện thoại để không bị quá to */
+        margin: 0 auto; /* Căn giữa lại */
+    }
+    .card-image-wrapper {
+        height: 280px; /* Trên điện thoại hạ xuống 280px nhìn rất xinh xắn */
+    }
+}
+/* ==========================================================================
+   HIỆU ỨNG ĐẶC BIỆT KHI DI CHUỘT VÀO (HOVER EFFECT)
+   ========================================================================== */
+   
+.card-box:hover {
+    transform: translateY(-12px); /* Nhấc cả ô ảnh nổi bật bay lên trên 12px */
+    /* Tạo đổ bóng mờ màu đỏ nâu thương hiệu siêu mịn bao quanh ảnh */
+    box-shadow: 0 20px 40px rgba(88, 22, 26, 0.08); 
+}
+
+.card-box:hover .card-image-wrapper img {
+    transform: scale(1.05); /* Ảnh bên trong tự phóng to nhẹ 5% tạo độ sâu UX cực đẹp */
+}
+
+
+/* ==========================================================================
+   TỰ ĐỘNG CÂN ĐỐI TRÊN ĐIỆN THOẠI & MÁY TÍNH BẢNG (RESPONSIVE)
+   ========================================================================== */
+
+@media (max-width: 992px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr); /* Trên ipad màn hình vừa thì chuyển thành 2 cột */
+    }
+    .features-title-block .main-title {
+        font-size: 39px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* 1. Thu hẹp vùng chứa chính, tạo khoảng trống hai bên lề */
+    .features-section { 
+        padding: 30px 16px; /* Giảm padding dọc, tạo lề 16px hai bên màn hình */
+    }
+    
+    /* 2. Tiêu đề thu nhỏ tinh tế để không bị vỡ dòng chữ An Giang */
+    .features-title-block {
+        margin-bottom: 20px; /* Thu hẹp khoảng cách giữa chữ và ảnh */
+    }
+    .features-title-block .sub-title { 
+        font-size: 12px; 
+        letter-spacing: 3px; 
+    }
+    .features-title-block .main-title { 
+        font-size: 26px; /* Kích thước chữ vừa vặn, không bị xuống dòng vô duyên */
+        line-height: 1.3;
+    }
+    
+    /* 3. LƯỚI TỰ ĐỘNG GỌN: Gom cụm 3 ô ảnh nằm gọn giữa màn hình */
+    .features-grid { 
+        grid-template-columns: 1fr; /* Xếp thành 1 cột dọc duy nhất */
+        gap: 16px;                  /* Khoảng cách giữa các box ảnh vừa phải, không quá xa */
+        max-width: 340px;           /* BÍ QUYẾT: Giới hạn chiều rộng box ảnh trên Mobile không bị quá bè */
+        margin: 0 auto;             /* Canh giữa toàn bộ cụm ảnh */
+    }
+    
+    /* 4. ĐỘ CAO HOÀN HẢO: Thu nhỏ chiều cao hộp ảnh để không bị chiếm quá nhiều chỗ */
+    .card-image-wrapper { 
+        height: 240px;             /* Hạ từ 280px xuống 240px giúp tổng thể thanh thoát cực kì */
+        border-radius: 12px;       /* Bo góc nhẹ hơn một chút cho hợp kích thước nhỏ */
+    }
+
+    .card-box {
+        border-radius: 12px;
+    }
+    
+    /* 5. Thu nhỏ thanh gỗ treo ưu đãi cho cân xứng với ô ảnh nhỏ */
+    .wood-sign-wrapper { 
+        top: -3px; 
+    }
+    .wood-sign { 
+        min-width: 90px; 
+        padding: 4px 6px; 
+        border-radius: 3px;
+    }
+    .sign-text { 
+        font-size: 10px; 
+    }
+    .sign-subtext { 
+        font-size: 6.5px; 
+    }
+    .rope { 
+        border-bottom: 12px solid #A68065; 
+        border-left: 12px solid transparent; 
+        border-right: 12px solid transparent; 
+    }
+    .rope::after { 
+        border-bottom: 10px solid #ffffff; 
+        left: -10px; 
+    }
+}
+/* Tự thêm mới đoạn này vào phần code chung trên PC */
+.menu-toggle {
+    display: none;      /* Mặc định ẩn hoàn toàn trên Máy tính */
+    flex-direction: column;
+    gap: 5px;           /* Khoảng cách giữa 3 sọc */
+    cursor: pointer;
+}
+.menu-toggle span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #58161A; /* Màu của 3 sọc, bạn đổi theo màu web của bạn */
+    border-radius: 2px;
+}
+
+
+
+@keyframes titleFadeUp{}
+/* ==========================================================================
+   HIỆU ỨNG REVEAL KHI CUỘN MÀN HÌNH (DÙNG KÈM JAVASCRIPT)
+   ========================================================================== */
+
+/* Trạng thái mặc định: Ẩn và nằm dịch xuống 40px (Áp dụng cho cả PC và Mobile) */
+.features-title-block .sub-title,
+.features-title-block .main-title,
+.features-grid .card-box {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s cubic-bezier(0.215, 0.610, 0.355, 1), 
+                transform 1s cubic-bezier(0.215, 0.610, 0.355, 1) !important;
+}
+
+/* Khi lướt tới nơi, JS sẽ tự động thêm class này để hiện ra */
+.show-reveal {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    margin: 10px;
+}
+
+/* Tạo độ trễ so le (delay) trực tiếp bằng transition-delay cực mượt trên PC */
+@media (min-width: 992px) {
+    .features-title-block .sub-title { transition-delay: 0.1s !important; }
+    .features-title-block .main-title { transition-delay: 0.3s !important; }
+    
+    /* 3 ô ảnh nguyên liệu sẽ lên sau khi chữ đã lên xong */
+    .features-grid .card-box:nth-child(1) { transition-delay: 0.6s !important; }
+    .features-grid .card-box:nth-child(2) { transition-delay: 0.7s !important; }
+    .features-grid .card-box:nth-child(3) { transition-delay: 0.8s !important; }
+}
+/* ==========================================================================
+   CSS KHỐI SẢN PHẨM NỔI BẬT (ĐÃ FIX LỖI ẨN NỀN TRẮNG VÀ CHỮ)
+   ========================================================================== */
+.products-section {
+    background-color: oklch(0.94 0.02 80 / 1); /* Ép cứng nền kem gạo toàn khu vực */
+    padding: 100px 20px;
+    width: 100%;
+    display: block;
+    position: relative;
+}
+
+.products-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Cấu hình tiêu đề hiển thị rõ ràng */
+.products-title-block {
+    text-align: left;
+    margin-bottom: 50px;
+}
+.products-title-block .sub-title-prod {
+    font-family: 'Inter', sans-serif;
+    color: oklch(0.75 0.15 55); /* Màu chữ phụ nâu xám */
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 10px;
+}
+.products-title-block .main-title-prod {
+    font-family: 'Noto Serif', serif;
+    color: #2C2520 !important; /* Ép chữ tiêu đề màu tối */
+    font-size: 42px;
+    font-weight: 700;
+    margin: 0;
+}
+.products-title-block .highlight-text {
+    color: #8E2931 !important; /* Màu đỏ hồng thương hiệu */
+}
+
+/* Lưới chia 3 cột */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 35px;
+}
+
+/* Thẻ sản phẩm */
+.product-card {
+    background-color: oklch(.97 .01 85 / 1); /* Ép cứng nền trắng cho card nổi bật */
+    border-radius: 16px;
+    overflow: hidden;
+    padding: 0px;
+    box-shadow: 0 10px 30px rgba(88, 22, 26, 0.04);
+    cursor: pointer;
+    
+    /* 🌟 FIX 1: ÉP CHIỀU CAO CỐ ĐỊNH CHO BOX TO DÀI BẰNG NHAU VÀ ĐẨY NỘI DUNG */
+    height: 480px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+
+    .border-background-200 {
+        --tw-border-opacity: 1;
+        border-color: #5c1a1b;
+    }
+    /* Cấu hình mượt mà cho hiệu ứng */
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                box-shadow 0.6s cubic-bezier(0.165, 0.84, 0.44, 1),
+                opacity 0.8s ease;
+}
+
+/* Khung bọc ảnh */
+.product-image-wrapper {
+    width: 100%;
+    height: 320px; /* Chiều cao khung ảnh 320px là rất bự và đẹp rồi */
+    background-color: #FDFBF7; 
+    border-radius: 0px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 🌟 FIX 2: PHÓNG TO ẢNH TRÀN KHUNG KHÔNG CHO BỊ THU NHỎ NỮA */
+.product-image-wrapper img {
+    width: 100%;          /* Thay max-width: 90% thành width: 100% */
+    height: 100%;         /* Thay max-height: 90% thành height: 100% */
+    object-fit: cover;    /* Đổi từ 'contain' sang 'cover' để ảnh tự zoom to lấp đầy 100% khung */
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Phần chữ dưới ảnh - ÉP MÀU CHỮ RÕ RÀNG */
+.product-info {
+    padding: 20px 15px 15px 15px; /* Tăng nhẹ padding hai bên từ 5px lên 15px nhìn cho thoáng chữ nhé */
+    text-align: left;
+    flex-grow: 1; /* Giúp đẩy phần thông tin tự giãn cách chuẩn */
+}
+.product-info h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #50210d !important; /* Ép chữ tiêu đề sản phẩm màu tối */
+    margin-bottom: 10px;
+}
+.product-info p {
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px;
+    color: #6B5E53 !important; /* Ép chữ mô tả màu xám mộc */
+    line-height: 1.6;
+    margin: 0;
+}
+/* HIỆU ỨNG DI CHUỘT VÀO (HOVER) */
+.product-card:hover {
+    transform: translateY(-15px) !important;
+    box-shadow: 0 20px 40px rgba(88, 22, 26, 0.12) !important;
+}
+.product-card:hover .product-image-wrapper img {
+    transform: scale(1.06);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .products-grid { grid-template-columns: repeat(2, 1fr); gap: 25px; }
+    .products-title-block .main-title-prod { font-size: 34px; }
+}
+@media (max-width: 768px) {
+    .products-section { padding: 60px 16px; }
+    .products-title-block { text-align: center; }
+    .products-title-block .main-title-prod { font-size: 28px; }
+    .products-grid { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
+}
+
+/* ==========================================================================
+   ☘️ TRẠNG THÁI ẨN KHI CHƯA CUỘN TỚI
+   ========================================================================== */
+.products-title-block,
+.products-grid .product-card {
+    opacity: 3;
+    transform: translateY(40px);
+}
+
+/* KHI KÍCH HOẠT LÊN TRANG */
+.products-title-block.show-reveal,
+.products-grid .product-card.show-reveal {
+    opacity: 3 !important;
+    transform: translateY(0) !important;
+}
+
+/* Độ trễ so le trên PC */
+@media (min-width: 992px) {
+    .products-grid .product-card:nth-child(1) { transition: transform 0.8s ease, opacity 0.8s ease; transition-delay: 0.2s !important; }
+    .products-grid .product-card:nth-child(2) { transition: transform 0.8s ease, opacity 0.8s ease; transition-delay: 0.4s !important; }
+    .products-grid .product-card:nth-child(3) { transition: transform 0.8s ease, opacity 0.8s ease; transition-delay: 0.6s !important; }
+}
+/* ==========================================================================
+   ☘️ HIỆU ỨNG CHUẨN: LƯỚT TỚI NƠI MỚI TỰ ĐỘNG ĐẨY LÊN
+   ========================================================================= */
+
+/* 1. Trạng thái ẩn ban đầu (Mặc định giấu đi và dịch xuống 50px) */
+.products-title-block,
+.products-grid .product-card {
+    opacity: 0 !important;
+    transform: translateY(50px) !important;
+    /* Thiết lập chuyển động mượt mà */
+    transition: opacity 1s cubic-bezier(0.215, 0.610, 0.355, 1), 
+                transform 1s cubic-bezier(0.215, 0.610, 0.355, 1) !important;
+}
+
+/* 2. Trạng thái hiện ra khi JavaScript phát lệnh (.active-reveal) */
+.products-title-block.active-reveal,
+.products-grid .product-card.active-reveal {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* 3. Phân chia thời gian delay so le nối đuôi nhau trên Máy tính (PC) */
+@media (min-width: 992px) {
+    /* Chữ Bộ sưu tập / Sản phẩm nổi bật lên trước */
+    .products-title-block.active-reveal {
+        transition-delay: 0.1s !important;
+    }
+    /* Hũ sản phẩm 1 đẩy lên tiếp theo */
+    .products-grid .product-card:nth-child(1).active-reveal { 
+        transition-delay: 0.3s !important; 
+    }
+    /* Hũ sản phẩm 2 đẩy lên */
+    .products-grid .product-card:nth-child(2).active-reveal { 
+        transition-delay: 0.5s !important; 
+    }
+    /* Hộp combo sản phẩm 3 đẩy lên sau cùng */
+    .products-grid .product-card:nth-child(3).active-reveal { 
+        transition-delay: 0.7s !important; 
+    }
+}
+
+/* ==========================================================================
+   🚀 GIỮ NGUYÊN HIỆU ỨNG RÊ CHUỘT VÀO (HOVER) NHẤC NỔI 15PX
+   ========================================================================== */
+.product-card {
+    /* Cấu hình để khi hiệu ứng trượt kết thúc, rê chuột vào vẫn mượt */
+    transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                box-shadow 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+}
+.product-card:hover {
+    transform: translateY(-15px) !important; /* Di chuột vào nhấc lên 15px */
+    box-shadow: 0 20px 40px rgba(88, 22, 26, 0.12) !important; /* Đổ bóng sâu */
+}
+.product-card:hover .product-image-wrapper img {
+    transform: scale(1.06); /* Ảnh hũ sản phẩm zoom nhẹ 6% cực đẹp */
+}
+/* Giao diện chung */
+body {
+    background-color: #f7f3ed; /* Màu nền kem be hợp với thương hiệu */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+.tieu-de-chinh {
+    color: #722f37; /* Màu đỏ mận chín sang trọng */
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+/* Định dạng lưới: Chia làm 3 cột đều nhau trên màn hình máy tính */
+.danh-sach-san-pham {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px; /* Khoảng cách giữa các ô */
+}
+
+/* Định dạng từng ô sản phẩm */
+.o-san-pham {
+    background-color: #ffffff;
+    border-radius: 16px;
+    overflow: hidden; /* Cắt các phần thừa khi ảnh tràn viền */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+/* KHÓA CHÍNH: Khung chứa ảnh bự */
+.khung-anh {
+    width: 100%;
+    height: 280px; /* Chiều cao cố định cho ảnh bự */
+    overflow: hidden;
+}
+
+/* Ép ảnh phóng to tràn khung không bị méo */
+.khung-anh img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Giúp ảnh tự zoom to lấp đầy khung vuông/chữ nhật */
+    object-position: center;
+}
+
+/* Phần chữ phía dưới */
+.thong-tin {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+.ten-sp {
+    font-size: 18px;
+    color: #333;
+    margin: 0 0 10px 0;
+}
+
+.mo-ta {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.4;
+    margin: 0 0 15px 0;
+}
+
+.gia-tien {
+    font-size: 16px;
+    font-weight: bold;
+    color: #722f37;
+}
+/* Thẻ sản phẩm bự nằm ngang - GIỮ NGUYÊN HIỆU ỨNG CŨ CỦA BẠN */
+.product-card-horizontal {
+    display: flex;
+    background-color: oklch(.97 .01 85 / 1); 
+    border-radius: 16px;
+    overflow: hidden;
+    padding: 0px;
+    box-shadow: 0 10px 30px rgba(88, 22, 26, 0.04);
+    cursor: pointer;
+    width: 100%;
+    max-width: 950px; /* Độ rộng bự cho cả box */
+    margin: 40px auto;
+    opacity: 1;
+    transform: translateY(50px); /* Thụt xuống 50px */
+    
+    /* Hiệu ứng mượt mà (Tăng lên 1s hoặc 1.2s cho trượt lên nhìn sang trọng) */
+    transition: transform 1.2s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                box-shadow 0.6s cubic-bezier(0.165, 0.84, 0.44, 1),
+                opacity 1.2s ease;
+    
+    /* Hiệu ứng mượt mà gốc của bạn */
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                box-shadow 0.6s cubic-bezier(0.165, 0.84, 0.44, 1),
+                opacity 0.8s ease;
+}
+
+/* Hover giữ nguyên hiệu ứng cũ */
+.product-card-horizontal:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(88, 22, 26, 0.1);
+}
+
+/* Khung bọc ảnh bên trái - Cao và bự */
+.product-image-wrapper-horizontal {
+    width: 45%; 
+    height: 480px; /* Tăng chiều cao bự lên bằng khối chữ */
+    background-color: #FDFBF7; 
+    overflow: hidden;
+    
+}
+
+.product-image-wrapper-horizontal img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ép ảnh lấp đầy khung */
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    object-position: center top;
+}
+
+/* Hover ảnh phóng to nhẹ */
+.product-card-horizontal:hover .product-image-wrapper-horizontal img {
+    transform: scale(1.04);
+}
+
+/* Khối chữ bự bên phải */
+.product-info-horizontal {
+    width: 55%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+/* Dòng chữ nhỏ trên cùng */
+.product-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: #a07855;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+/* Tiêu đề bự */
+.product-info-horizontal h3 {
+    font-family: 'Noto Serif', serif;
+    font-size: 26px; /* Chữ bự nổi bật */
+    font-weight: 700;
+    color: #50210d !important;
+    margin: 0 0 15px 0;
+}
+
+/* Đoạn mô tả ngắn */
+.product-info-horizontal .description {
+    font-family: 'Inter', sans-serif;
+    font-size: 14.5px;
+    color: #6B5E53 !important;
+    line-height: 1.6;
+    margin: 0 0 20px 0;
+}
+
+/* Danh sách dòng có tích ✨ */
+.features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 25px 0;
+}
+
+.features-list li {
+    font-family: 'Inter', sans-serif;
+    font-size: 14.5px;
+    color: #50210d;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}
+
+.features-list li span {
+    margin-right: 10px;
+}
+
+/* Phần ưu đãi và nút */
+.purchase-section {
+    border-top: 1px dashed rgba(80, 33, 13, 0.2);
+    padding-top: 15px;
+}
+
+.promo-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #722f37; /* Màu đỏ mận ưu đãi */
+    font-weight: 600;
+    margin: 0 0 15px 0;
+}
+
+/* Nút mua ngay thiết kế sang xịn */
+.buy-now-btn {
+    font-family: 'Inter', sans-serif;
+    background-color: #5c1a1b; /* Màu đỏ đô chuẩn thương hiệu của bạn */
+    color: #ffffff;
+    border: none;
+    padding: 12px 28px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: background-color 0.3s ease;
+}
+
+.buy-now-btn:hover {
+    background-color: #421213; /* Đậm màu hơn khi hover */
+}
+.product-image-wrapper-horizontal img {
+    width: 100%;
+    height: 100%;
+    /* object-fit: cover sẽ lấy phần giữa của ảnh 9:16 để lấp đầy khung, 
+       giúp hũ sản phẩm to rõ và không bị méo */
+    object-fit: cover; 
+    object-position: center;
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    /* Khung chứa ảnh */
+}
+.khung-anh {
+    width: 100%;       /* Độ rộng của khung (ví dụ 100%) */
+    height: 500px;      /* Chiều cao của khung (ví dụ 300px) */
+    overflow: hidden;   /* Cắt bỏ phần ảnh thừa ra ngoài khung */
+}
+
+/* Thẻ ảnh bên trong khung */
+.khung-anh img {
+    width: 100%;        /* Ép chiều rộng ảnh bằng khung */
+    height: 100%;       /* Ép chiều cao ảnh bằng khung */
+    
+    /* 🌟 DÒNG QUAN TRỌNG NHẤT: Giúp ảnh không bị vỡ/méo */
+    object-fit: cover;  
+    
+    /* Căn ảnh nằm giữa khung */
+    object-position: center; 
+}
+/* 1. Phóng to các chữ Menu (Trang chủ, Giới thiệu, Sản phẩm, Liên hệ) */
+.nav-links a {
+    font-size: 18px !important;    /* Tăng lên 18px (mặc định thường chỉ 14px-16px) */
+    font-weight: 500 !important;   /* Làm chữ đậm lên nhìn cho rõ */
+    letter-spacing: 0.5px;         /* Khoảng cách giữa các chữ thoáng hơn */
+}
+
+/* 2. Nếu muốn các khoảng cách giữa các mục menu rộng ra cho đẹp */
+.nav-links li {
+    margin: 0 20px !important;     /* Tăng khoảng cách trái phải giữa các chữ */
+}
+
+/* 3. Phóng to chữ trên nút MUA NGAY (nếu cần) */
+header button, 
+.btn-buy-now {
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    padding: 10px 24px !important; /* Cho cái nút to ra tương xứng với chữ */
+}
+
+/* 4. Phóng to chữ ở biển treo "Giảm 30%" (wood-sign) nếu nó bị nhỏ */
+.sign-text {
+    font-size: 16px !important;
+    font-weight: 500 !important;
+}
+.sign-subtext {
+    font-size: 11px !important;
+}
+/* Đổi màu chữ Menu thành màu nâu nhạt */
+.nav-links a {
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.5px;
+    
+    /* 🌟 MÃ MÀU NÂU NHẠT SANG TRỌNG (Tone Gạo Lứt/Gỗ nhạt) */
+    color: #4A1518 !important; 
+    
+    transition: color 0.3s ease; /* Hiệu ứng đổi màu mượt mà khi di chuột */
+}
+
+/* Hiệu ứng khi di chuột vào (Hover) — Chữ sẽ đổi sang màu nâu đậm hơn một chút */
+.nav-links a:hover {
+    color: #58161A !important; /* Đổi thành màu nâu đỏ đậm của Huyền Sa khi rê chuột vào */
+}
+/* --- BIẾN MÀU SẮC THƯƠNG HIỆU --- */
+:root {
+    --bg-creamy: oklch(.97 .05 80 / 1);      /* Màu nền be sữa nhạt của trang */
+    --brown-brand: #58161A;    /* Nâu đỏ đậm huyết rồng */
+    --rose-brand: #A64B58;     /* Hồng đỏ mận nhạt */
+    --text-dark: #333333;
+}
+
+/* --- CẤU HÌNH PHẦN VỀ CHÚNG TÔI --- */
+.about-section {
+    background-color: var(--bg-creamy);
+    padding: 80px 10%;
+    overflow: hidden;
+}
+.about-container {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.about-content { flex: 1; }
+.sub-title {
+    color: oklch(0.75 0.15 55);
+    font-size: 14px;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+.about-content h2 {
+    font-size: 48px;
+    color: var(--brown-brand);
+    line-height: 1.2;
+    margin: 15px 0;
+    font-weight: 500;
+}
+.brand-tail {
+    color: var(--rose-brand);
+    font-family: 'Playfair Display', serif; /* Nếu có font nghệ thuật */
+}
+.desc-p {
+    color: oklch(.48 .05 50 / 1);
+    line-height: 1.7;
+    margin-bottom: 20px;
+    font-size: 15px;
+}
+.badge-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 30px;
+}
+.badge-item {
+    background: #FFF;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: #666;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+.about-image-wrapper {
+    flex: 1;
+    position: relative;
+}
+.about-img {
+    width: 100%;
+    border-radius: 24px;
+    object-fit: cover;
+}
+.floating-badge {
+    position: absolute;
+    bottom: -20px;
+    left: -20px;
+    background-color: var(--rose-brand);
+    color: white;
+    padding: 25px 30px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(166, 75, 88, 0.3);
+}
+.floating-badge h3 { font-size: 28px; margin: 0; }
+.floating-badge p { font-size: 12px; margin: 5px 0 0 0; opacity: 0.9; }
+
+/* --- CẤU HÌNH TRANG CHI TIẾT SẢN PHẨM --- */
+.product-detail-section {
+    background-color: #FFFFFF;
+    padding: 90px 10%;
+}
+.detail-container {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.detail-image-box {
+    flex: 1;
+    background-color: var(--bg-creamy);
+    border-radius: 20px;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+}
+.detail-main-img {
+    max-width: 90%;
+    height: auto;
+    transition: transform 0.5s ease;
+}
+.detail-main-img:hover { transform: scale(1.05); }
+
+.detail-info-box { flex: 1; }
+.prod-title {
+    font-size: 38px;
+    color: #222;
+    margin-bottom: 5px;
+}
+.prod-weight {
+    color: #888;
+    display: block;
+    margin-bottom: 20px;
+}
+.prod-price {
+    font-size: 32px;
+    color: var(--rose-brand);
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+.prod-summary {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+.benefit-tags {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+.tag-check {
+    background-color: #EAE2D5;
+    color: #5D5343;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+.action-buttons {
+    display: flex;
+    gap: 15px;
+}
+.btn-add-cart {
+    background-color: var(--rose-brand);
+    color: white;
+    border: none;
+    padding: 16px 40px;
+    font-size: 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    flex: 2;
+    transition: background 0.3s;
+}
+.btn-add-cart:hover { background-color: var(--brown-brand); }
+.btn-wishlist {
+    background: transparent;
+    border: 1px solid #DDD;
+    color: #555;
+    padding: 16px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    flex: 1;
+    transition: all 0.3s;
+}
+.btn-wishlist:hover { background: #F5F5F5; border-color: #BBB; }
+
+/* REPSONSIVE CHO ĐIỆN THOẠI */
+@media (max-width: 768px) {
+    .about-container, .detail-container { flex-direction: column; gap: 40px; }
+    .about-section, .product-detail-section { padding: 50px 5%; }
+    .about-content h2 { font-size: 36px; }
+    .floating-badge { bottom: 10px; left: 10px; padding: 15px 20px; }
+}
+/* =========================================================================
+   1. PHÓNG TO CHỮ CHO PHẦN BANNER CHÍNH (HERO SECTION - ẢNH 1)
+   ========================================================================= */
+/* Chữ phụ phía trên tiêu đề */
+.hero-section .sub-title,
+.hero-section span {
+    font-size: 16px !important;       /* Tăng từ cỡ nhỏ lên 16px */
+    letter-spacing: 2px !important;   /* Giãn chữ ra nhìn cho thoáng */
+}
+
+/* Tiêu đề lớn "Mặt nạ bột gạo lứt huyết rồng Huyền Sa" */
+.hero-section h1,
+.hero-section .main-title {
+    font-size: 54px !important;       /* Phóng to lên hẳn 54px tạo điểm nhấn cực mạnh */
+    line-height: 1.25 !important;
+    margin-bottom: 25px !important;
+}
+
+/* Đoạn văn mô tả sản phẩm ở banner */
+.hero-section p,
+.hero-section .desc-text {
+    font-size: 18px !important;       /* Tăng lên 18px để người dùng đọc rõ ràng */
+    line-height: 1.7 !important;      /* Giãn dòng thoáng hơn */
+    max-width: 650px !important;      /* Nới rộng khung chứa chữ */
+}
+
+
+/* =========================================================================
+   2. PHÓNG TO CHỮ CHO PHẦN "VỀ CHÚNG TÔI" (ABOUT SECTION - ẢNH 3)
+   ========================================================================= */
+/* Tiêu đề chính "Huyền Sa Naturals" */
+.about-section h2 {
+    font-size: 52px !important;       /* Tăng kích thước tiêu đề khối giới thiệu */
+    line-height: 1.2 !important;
+}
+
+/* Các đoạn văn giới thiệu thương hiệu */
+.about-section p.desc-p,
+.about-section .desc-text {
+    font-size: 17px !important;       /* Phóng to chữ mô tả lên 17px */
+    line-height: 1.75 !important;
+}
+
+/* Các tag cam kết (100% Organic, Thân thiện môi trường...) */
+.about-section .badge-item {
+    font-size: 15px !important;       /* Cho chữ trong ô tag to lên */
+    padding: 10px 20px !important;    /* Nới rộng ô chứa chữ cho cân đối */
+}
+
+
+/* =========================================================================
+   3. PHÓNG TO CHỮ CHO TRANG CHI TIẾT SẢN PHẨM (PRODUCT DETAIL - ẢNH 2)
+   ========================================================================= */
+/* Tên sản phẩm "Mặt Nạ Bột Gạo Lứt Huyết Rồng" */
+.product-detail-section .prod-title,
+.product-detail-section h1 {
+    font-size: 42px !important;       /* Tăng từ cỡ vừa lên 42px để làm nổi bật tên sản phẩm */
+    font-weight: 600 !important;
+}
+
+/* Trọng lượng "200g" */
+.product-detail-section .prod-weight {
+    font-size: 18px !important;       
+}
+
+/* Giá tiền "280.000đ" */
+.product-detail-section .prod-price {
+    font-size: 36px !important;       /* Phóng to giá tiền lên để kích thích thị giác */
+    font-weight: 700 !important;
+}
+
+/* Đoạn mô tả chi tiết sản phẩm (100% bột gạo lứt huyết rồng nguyên chất...) */
+.product-detail-section .prod-summary,
+.product-detail-section p {
+    font-size: 17px !important;       /* Tăng lên 17px cho khách hàng dễ đọc công dụng */
+    line-height: 1.7 !important;
+}
+
+/* Tiêu đề "Công dụng" nhỏ phía trên các tag check */
+.product-detail-section h3,
+.product-detail-section .benefit-title {
+    font-size: 20px !important;
+    margin-bottom: 15px !important;
+}
+
+/* Các chữ trong ô tính năng (Dưỡng ẩm sâu, Sáng da tự nhiên...) */
+.product-detail-section .tag-check {
+    font-size: 16px !important;       /* Phóng to chữ trong nút công dụng */
+    padding: 10px 20px !important;    /* Tạo thêm không gian bao quanh chữ */
+}
+
+/* Chữ trong 2 nút bấm lớn (THÊM VÀO GIỎ & YÊU THÍCH) */
+.product-detail-section .action-buttons button {
+    font-size: 16px !important;       /* Phóng to chữ trong nút bấm */
+    letter-spacing: 1px !important;
+    padding: 18px 30px !important;    /* Làm nút to dầy lên cho sang trọng */
+}

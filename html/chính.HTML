@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huyền Sa Naturals — Mặt Nạ Bột Gạo Lứt Huyết Rồng</title>
+    <link rel="stylesheet" href="../css/MMZ.CSS">
+
+    <!-- Fonts & Icons từ Google Fonts và FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Thư viện GSAP cho hiệu ứng chuyển động mượt mà -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Liên kết tới file CSS riêng biệt -->
+    <link rel="stylesheet" href="../css/chính.CSS">
+</head>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function checkProductReveal() {
+            // Quét tiêu đề và 3 ô sản phẩm nổi bật
+            const targets = document.querySelectorAll('.products-title-block, .product-card');
+            const triggerBottom = window.innerHeight * 0.85; // Mốc 85% màn hình khi cuộn tới
+
+            targets.forEach(target => {
+                const targetTop = target.getBoundingClientRect().top;
+
+                // Nếu lướt tới tầm mắt, thêm class kích hoạt trượt
+                if (targetTop < triggerBottom) {
+                    target.classList.add('active-reveal');
+                }
+            });
+        }
+
+        // Kích hoạt khi cuộn chuột và khi vừa load trang
+        window.addEventListener('scroll', checkProductReveal);
+        window.addEventListener('load', checkProductReveal);
+        
+        // Chạy kiểm tra trước 1 lần
+        checkProductReveal();
+    });
+</script>
+
+
+<body>
+    
+
+    <!-- 1. Màn hình chào tải trang (Preloader) -->
+    <div id="preloader">
+        <div class="preloader-brand">HUYỀN SA NATURALS</div>
+        <div class="preloader-bar-wrap">
+            <div class="preloader-bar"></div>
+        </div>
+    </div>
+
+    <!-- 2. Menu Điều Hướng (Header) -->
+    <header>
+        <div class="logo">
+            <a href="#">
+                <img src="../image/logo.final1 (1).png" alt="logo">
+            </a>
+            <!-- <span>Bột gạo lứt huyết rồng dưỡng da</span> -->
+        </div>
+        <ul class="nav-links">
+            <li><a href="#">Trang chủ</a></li>
+            <li><a href="#">Giới thiệu</a></li>
+            <li><a href="#">Sản phẩm</a></li>
+            <li><a href="#">Liên hệ</a></li>
+        </ul>
+         <div class="header-right">
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <div class="cart">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span>0</span>
+            </div>
+            <button style="border:1px;">MUA NGAY</button>
+        </div>
+
+    </header>
+
+    <!-- 3. Khu vực Banner Chính (Hero Section) -->
+    <section class="hero-section">
+        <div class="hero-bg-media"></div>
+        <div class="rice-layer" id="grain-layer"></div>
+
+        <div class="hero-text-container">
+            <span class="hero-tag">Tinh hoa gạo lứt - Đánh thức làn da</span>
+            
+            <h1>Mặt nạ bột gạo lứt huyết rồng Huyền Sa</h1>
+            <p>Được tạo nên từ 100% gạo lứt huyết rồng Tứ Giác Long Xuyên, An Giang, kết hợp công nghệ Nano siêu mịn, Huyền Sa mang đến giải pháp chăm sóc da dịu lành, giúp dưỡng ẩm, làm sáng và cải thiện làn da không đều màu</p>
+            <a href="#" class="btn-discover">Khám phá sản phẩm</a>
+        </div>
+    </section>
+    <section class="features-section">
+        <div class="features-container">
+            
+            <div class="features-title-block">
+                <span class="sub-title">DI SẢN THIÊN NHIÊN</span>
+                <h2 class="main-title">Từ những cánh đồng <br><span class="highlight-text">An Giang</span></h2>
+            </div>
+
+            <div class="features-grid">
+                
+                <div class="card-box">
+                    <div class="card-image-wrapper">
+                        <img src="../image/agriculture-9829293_1280-2560x1440-2-480x360 (1).jpg" alt="Vùng nguyên liệu An Giang">
+                        </div>
+                <div class="card-info">
+                    <h3>Vùng đất Tứ Giác</h3>
+                    <p>Những cánh đồng lúa mênh mông bên dòng Mekong, nơi gạo lứt huyết rồng được nuôi dưỡng bởi phù sa phì nhiêu.</p>
+                    </div>
+
+                    
+                </div>
+
+                <div class="card-box">
+                    <div class="card-image-wrapper">
+                        <img src="../image/gao-lut-huyet-rong1-scaled.jpg" alt="Hạt lúa vàng">
+                        </div>
+                <div class="card-info">
+                    <h3>Gạo Lứt Huyết Rồng</h3>
+                    <p>Hạt gạo quý hiếm với sắc đỏ tự nhiên, chứa dưỡng chất gấp 3 lần gạo trắng thông thường.</p>
+                    </div>
+                </div>
+
+                <div class="card-box">
+                    <div class="card-image-wrapper">
+                        <img src="../image/A cinematic, high-quality commercial photography of a beautiful Vietnamese young woman lying down, relaxing with eyes closed while wearing a textured reddish-brown rice mask on her face. Next to her, on a rustic wo.jpg" alt="Chăm sóc làn da">
+                        </div>
+                <div class="card-info">
+                    <h3>Đánh Thức Làn Da</h3>
+                    <p>Công nghệ xay Nano siêu mịn, dịu nhẹ cho làn da — dưỡng ẩm, sáng da, giảm thâm.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section class="products-section">
+    <div class="products-container">
+        
+        <div class="products-title-block">
+            <span class="sub-title-prod">Bộ sưu tập</span>
+            <h2 class="main-title-prod">Sản phẩm <br> <span class="highlight-text">nổi bật</span></h2>
+        </div>
+
+        <div class="product-card-horizontal">
+    
+    <div class="product-image-wrapper-horizontal">
+        <img src="../image/2.png" alt="Mặt Nạ Dưỡng Da Thiên Nhiên">
+    </div>
+    
+    
+    <div class="product-info-horizontal">
+        <span class="product-tag"></span>
+        <h3>MẶT NẠ BỘT GẠO LỨT HUYẾT RỒNG</h3>
+        
+        <p class="description">
+            Nuôi dưỡng làn da từ những thành phần thiên nhiên được chọn lọc kỹ lưỡng, 
+            giúp da mềm mại, tươi sáng và rạng rỡ hơn sau mỗi lần sử dụng.
+        </p>
+        
+        <ul class="features-list">
+            <li><span></span> Cấp ẩm và làm dịu da</li>
+            <li><span></span> Hỗ trợ dưỡng sáng tự nhiên</li>
+            <li><span></span> Phù hợp với nhiều loại da</li>
+            <li><span></span> Thành phần lành tính</li>
+        </ul>
+        
+        <div class="purchase-section">
+            <p class="promo-text">🔥 Ưu đãi ra mắt có hạn: Giảm ngay 30% cho đơn hàng đầu tiên  <br>và hàng loạt ưu đãi mùa hè đang chờ bạn.</p>
+            <a href="san-pham.html">
+        <button class="buy-now-btn">MUA NGAY</button>
+    </a>
+</div>
+        </div>
+    </div>
+
+</div>
+
+        </div>
+    </div>
+</section>
+<section class="about-section" id="about-us">
+    <div class="about-container">
+        <div class="about-content animate-left">
+            <span class="sub-title">VỀ CHÚNG TÔI</span>
+            <h2>Huyền Sa <br><span class="brand-tail">Naturals</span></h2>
+            <p class="desc-p">Huyền Sa Naturals là thương hiệu chăm sóc da từ gạo lứt huyết rồng Việt Nam. Chúng tôi mong muốn đưa những giá trị của nông sản Việt vào các sản phẩm làm đẹp an toàn, lành tính và phù hợp với nhu cầu chăm sóc da hiện đại.</p>
+             <p class="desc-p">Mặt nạ bột gạo lứt huyết rồng Huyền Sa được sản xuất từ 100% gạo lứt huyết rồng tuyển chọn tại vùng Tứ Giác Long Xuyên, An Giang. Kết hợp cùng công nghệ xay Nano siêu mịn, sản phẩm giúp nâng cao trải nghiệm sử dụng, mang đến giải pháp chăm sóc da đơn giản, dịu nhẹ và gần gũi với người Việt.</p>
+
+            <p class="desc-p">Không chỉ tạo ra sản phẩm làm đẹp, Huyền Sa còn mong muốn góp phần lan tỏa giá trị của nông sản Việt và khơi gợi niềm tự hào về những nguyên liệu bản địa giàu tiềm năng.</p>
+            <div class="badge-group">
+                <span class="badge-item">Nguyên liệu bản địa Việt Nam</span>
+                <span class="badge-item">Lành tính cho làn da</span>
+                <span class="badge-item">Tự hào giá trị Việt</span>
+            </div>
+        </div>
+
+        <div class="about-image-wrapper animate-right">
+            <img src="../image/z7961565673733_73b2c375845aa30d501af3fcc25fd598.jpg" alt="Huyền Sa Naturals" class="about-img">
+            <div class="floating-badge">
+                <h3>100%</h3>
+                <p>Tự nhiên</p>
+            </div>
+        </div>
+    </div>
+</section>
+    
+
+    <!-- 4. Khối 3 Công Dụng Tiêu Biểu -->
+    <section class="features-section">
+        <h2 class="features-head">Tinh Túy Từ Hạt Gạo Việt</h2>
+
+        <div class="cards-layout">
+            <div class="card-box">
+                <div class="icon-circle">
+                    <i class="fa-solid fa-droplet"></i>
+                </div>
+                <h3>DƯỠNG ẨM</h3>
+                <p>Khóa màng giữ ẩm tự nhiên sâu bên dưới biểu bì da, duy trì độ mịn màng, căng mướt dễ chịu.</p>
+            </div>
+
+            <div class="card-box">
+                <div class="icon-circle">
+                  <i class="fa-solid fa-heart"></i>
+                </div>
+                <h3>SÁNG DA</h3>
+                <p>Cung cấp dưỡng chất và Vitamin nhóm B dồi dào bồi đắp nuôi làn da trắng hồng khỏe mạnh từ gốc.</p>
+            </div>
+
+            <div class="card-box">
+                <div class="icon-circle">
+                    <i class="fa-solid fa-wand-magic"></i>
+                </div>
+                <h3>ĐỀU MÀU DA</h3>
+                <p>Nhẹ nhàng tái tạo cấu trúc bề mặt, xóa mờ thâm mụn, đốm nâu mang lại làn da bừng sáng đều màu.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Xử lý hiệu ứng bằng GSAP Engine -->
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+
+            // Hiệu ứng màn hình Preloader khi vừa vào trang
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    document.getElementById('preloader').style.display = 'none';
+                }
+            });
+
+            tl.to('.preloader-brand', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' })
+                .to('.preloader-bar', { left: '0%', duration: 1.0, ease: 'power2.inOut' }, '-=0.2')
+                .to('#preloader', { opacity: 0, duration: 0.5, ease: 'power2.out' })
+                .from('.hero-text-container', { opacity: 0, y: 40, duration: 0.8, ease: 'power3.out' }, '-=0.1')
+                .from('.hero-bg-media', { scale: 1.1, duration: 1.5, ease: 'power2.out' }, '-=0.8');
+
+            // Thuật toán tạo tự động hạt gạo lứt lơ lửng ngẫu nhiên
+            const layer = document.getElementById('grain-layer');
+            const maxGrains = 25;
+
+            for (let i = 0; i < maxGrains; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('rice-particle');
+
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+
+                const scale = Math.random() * 0.7 + 0.4;
+                particle.style.transform = `scale(${scale}) rotate(${Math.random() * 360}deg)`;
+
+                layer.appendChild(particle);
+
+                // Tạo chuyển động đung đưa nhịp nhàng
+                gsap.to(particle, {
+                    x: '+=100',
+                    y: '-=80',
+                    rotation: '+=120',
+                    duration: Math.random() * 12 + 10,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: 'sine.inOut',
+                    delay: Math.random() * -10
+                });
+            }
+
+            // Kích hoạt ScrollTrigger
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Hiệu ứng cuộn Parallax cho hình nền cánh đồng
+            gsap.to('.hero-bg-media', {
+                yPercent: 12,
+                scrollTrigger: {
+                    trigger: '.hero-section',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: true
+                }
+            });
+
+            // Hiệu ứng xuất hiện so le (Stagger) cho 3 khối công dụng khi cuộn trang tới
+            gsap.from('.card-box', {
+                opacity: 0,
+                y: 50,
+                stagger: 0.2,
+                duration: 0.8,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: '.features-section',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+
+    </script>
+    <footer>
+
+        <div class="footer-grid">
+
+            <div>
+                <h2>HUYỀN SA</h2>
+                <p>Bột gạo lứt huyết rồng dưỡng da thiên nhiên</p>
+            </div>
+
+            <div>
+                <h3>THÔNG TIN</h3>
+                <p>Giới thiệu</p>
+                <p>Sản phẩm</p>
+                <p>Chính sách</p>
+            </div>
+
+            <div>
+                <h3>HỖ TRỢ</h3>
+                <p>Hướng dẫn mua hàng</p>
+                <p>Thanh toán</p>
+                <p>Vận chuyển</p>
+            </div>
+
+            <div>
+                <h3>LIÊN HỆ</h3>
+                <p>0123 456 789</p>
+                <p>huyensa@gmail.com</p>
+            </div>
+
+        </div>
+
+        <div class="copyright">
+            © 2025 HUYỀN SA. All rights reserved.
+        </div>
+
+    </footer>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Thu thập tất cả các thành phần cần tạo hiệu ứng lướt hiện
+    const revealElements = document.querySelectorAll(
+        '.features-title-block .sub-title, .features-title-block .main-title, .features-grid .card-box'
+    );
+
+    const observerOptions = {
+        root: null, // Lấy toàn bộ màn hình làm khung chuẩn
+        rootMargin: "0px 0px -100px 0px", // Kích hoạt hiệu ứng trước khi phần tử chạm đáy màn hình 100px (giúp thấy rõ chuyển động)
+        threshold: 0.1 // Chỉ cần 10% phần tử xuất hiện là chạy hiệu ứng
+    };
+
+    const revealObserver = new IntersectionObserver(function (entries, observer) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Thêm class để kích hoạt CSS trượt hiện lên
+                entry.target.classList.add('show-reveal');
+                // Hủy theo dõi phần tử này sau khi đã hiện xong (giúp tăng hiệu năng cho web)
+                observer.unobserve(entry.target); 
+            }
+        });
+    }, observerOptions);
+
+    // Kích hoạt bộ theo dõi cuộn cho từng phần tử
+    revealElements.forEach(element => {
+        revealObserver.observe(element);
+    });
+});
+</script>
+<script>
+// Bước 1: Chờ cho trang web tải xong xuôi toàn bộ hình ảnh, dữ liệu
+window.addEventListener("load", function () {
+    const preloader = document.getElementById("preloader");
+    if (preloader) {
+        // Bước 2: Tải xong rồi vẫn ép màn hình màu be đứng im chờ thêm 2.5 giây (2500ms) 
+        // Bạn muốn chậm hơn nữa thì tăng số 2500 thành 3000 hoặc 4000 nhé!
+        setTimeout(function() {
+            // Bước 3: Hết thời gian chờ, xóa bỏ hoàn toàn màn hình màu be để nhảy thẳng vào trang chính
+            preloader.style.display = "none";
+        }, 2500); 
+    }
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Thu thập tất cả các thành phần cần tạo hiệu ứng lướt hiện
+    const revealElements = document.querySelectorAll(
+        '.features-title-block .sub-title, .features-title-block .main-title, .features-grid .card-box'
+    );
+
+    const observerOptions = {
+        root: null, // Lấy toàn bộ màn hình làm khung chuẩn
+        rootMargin: "0px 0px -100px 0px", // Kích hoạt hiệu ứng trước khi phần tử chạm đáy màn hình 100px (giúp thấy rõ chuyển động)
+        threshold: 0.1 // Chỉ cần 10% phần tử xuất hiện là chạy hiệu ứng
+    };
+
+    const revealObserver = new IntersectionObserver(function (entries, observer) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Thêm class để kích hoạt CSS trượt hiện lên
+                entry.target.classList.add('show-reveal');
+                // Hủy theo dõi phần tử này sau khi đã hiện xong (giúp tăng hiệu năng cho web)
+                observer.unobserve(entry.target); 
+            }
+        });
+    }, observerOptions);
+
+    // Kích hoạt bộ theo dõi cuộn cho từng phần tử
+    revealElements.forEach(element => {
+        revealObserver.observe(element);
+    });
+});
+</script>
+<script>
+  // Tự động kích hoạt hiệu ứng trượt lên khi cuộn trang tới
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        // Khi cuộn màn hình tới, ảnh sẽ mất trạng thái ẩn và trượt lên mượt mà
+        entry.target.style.opacity = "1";
+        entry.target.style.transform = "translateY(0)";
+      }
+    });
+  }, { threshold: 0.1 }); // Xuất hiện khi lướt thấy 10% bức ảnh
+
+  // Tìm đến khung ảnh nằm ngang để áp dụng
+  document.addEventListener("DOMContentLoaded", () => {
+    const animationTarget = document.querySelector('.product-image-wrapper-horizontal');
+    if(animationTarget) {
+      observer.observe(animationTarget);
+    }
+  });
+</script>
+<script>
+  // Theo dõi khi cuộn trang tới cái Box bự
+  const boxObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        // Khi cuộn màn hình thấy cái Box, kích hoạt cho toàn bộ Box trượt lên và hiện ra
+        entry.target.style.opacity = "1";
+        entry.target.style.transform = "translateY(0)";
+      }
+    });
+  }, { threshold: 0.1 }); // Thấy 10% của cái Box là kích hoạt liền
+
+  // Chạy hiệu ứng
+  document.addEventListener("DOMContentLoaded", () => {
+    const targetBox = document.querySelector('.product-card-horizontal');
+    if (targetBox) {
+      boxObserver.observe(targetBox);
+    }
+  });
+</script>
+
+</body>
+
+</footer>
+
+    <script>
+        (() => {
+            const oldHeader = document.querySelector('header');
+
+            if (oldHeader) {
+                oldHeader.innerHTML = `
+                    <div class="logo">
+                        <a href="#">
+                            <img src="../image/logo.final1 (1).png" alt="logo">
+                        </a>
+                    </div>
+                    
+                    <ul class="nav-links" id="navLinks">
+                        <li><a href="#">Trang chủ</a></li>
+                        <a href="gioi-thieu.html" class="text-[#58161A] font-semibold">Giới thiệu  </a>  
+                        <a href="san-pham.html">Sản phẩm</a>
+                        <!-- Tìm dòng cũ và sửa lại href như này -->
+<a href="lien-he.html" class="hover:text-[#58161A] transition">Liên hệ</a>
+                    </ul>
+
+                    <div class="header-right">
+                        <div class="wood-sign-wrapper">
+                            <div class="rope"></div>
+                            <div class="wood-sign">
+                                <span class="sign-text">Giảm 30%</span>
+                                <span class="sign-subtext">🎁 ĐƠN HÀNG ĐẦU TIÊN</span>
+                            </div>
+                        </div>
+
+                        <i class="fa-solid fa-magnifying-glass"></i>
+
+                        <div class="cart" id="cartIcon">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span>0</span>
+                        </div>
+
+                        <button style="border:1px;" class="btn-buy-now">MUA NGAY</button>
+
+                        <div class="menu-toggle" id="menuToggle">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                `;
+
+                // 1. TỰ ĐỘNG BƠM THÊM KHUNG GIỎ HÀNG ẨN VÀO CUỐI TRANG (ĐÃ THÊM NÚT)
+                const cartSidebar = document.createElement('div');
+                cartSidebar.id = 'cartSidebar';
+                cartSidebar.className = 'cart-sidebar';
+                cartSidebar.innerHTML = `
+                    <div class="cart-sidebar-header">
+                        <h3>Giỏ hàng của bạn</h3>
+                        <div class="close-cart" id="closeCart">&times;</div>
+                    </div>
+                    <div class="cart-sidebar-content">
+                        <i class="fa-solid fa-bag-shopping empty-cart-icon"></i>
+                        <p>Giỏ hàng hiện đang trống</p>
+                        <p>Không có sản phẩm nào trong</p>
+                        <p>giỏ của bạn</p>
+                        <button class="btn-continue-shopping" id="btnContinueShopping">TIẾP TỤC MUA SẮM</button>
+                    </div>
+                `;
+                document.body.appendChild(cartSidebar);
+
+                // 2. LOGIC ĐÓNG / MỞ GIỎ HÀNG TRƯỢT & CHUYỂN TRANG
+                const cartIcon = document.getElementById('cartIcon');
+                const closeCart = document.getElementById('closeCart');
+                const btnContinueShopping = document.getElementById('btnContinueShopping');
+
+                if (cartIcon && cartSidebar && closeCart) {
+                    // Mở giỏ hàng khi nhấp vào icon giỏ hàng
+                    cartIcon.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        cartSidebar.classList.add('active');
+                    });
+
+                    // Đóng giỏ hàng khi nhấp vào dấu X
+                    closeCart.addEventListener('click', () => {
+                        cartSidebar.classList.remove('active');
+                    });
+
+                    // CHUYỂN TRANG QUA SHOPEE KHI NHẤP NÚT TIẾP TỤC MUA SẮM
+                    if (btnContinueShopping) {
+                        btnContinueShopping.addEventListener('click', () => {
+                            window.location.href = 'https://shopee.vn'; // Sửa link Shopee của bạn tại đây
+                        });
+                    }
+
+                    // Bấm ra ngoài vùng giỏ hàng tự động đóng lại
+                    document.addEventListener('click', (e) => {
+                        if (!cartSidebar.contains(e.target) && !cartIcon.contains(e.target)) {
+                            cartSidebar.classList.remove('active');
+                        }
+                    });
+                }
+
+                // 3. ĐIỀU HƯỚNG NÚT MUA NGAY
+                const btnBuyNow = oldHeader.querySelector('.btn-buy-now');
+                if (btnBuyNow) {
+                    btnBuyNow.addEventListener('click', (e) => {
+                        e.preventDefault(); 
+                        window.location.href = 'https://shopee.vn'; 
+                    });
+                }
+
+                // 4. LOGIC MENU MOBILE
+                const menuToggle = document.getElementById('menuToggle');
+                const navLinksContainer = document.getElementById('navLinks');
+                const links = document.querySelectorAll('.nav-links a');
+
+                if (menuToggle && navLinksContainer) {
+                    menuToggle.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        this.classList.toggle('active');
+                        navLinksContainer.classList.toggle('active');
+                    });
+
+                    links.forEach(link => {
+                        link.addEventListener('click', () => {
+                            menuToggle.classList.remove('active');
+                            navLinksContainer.classList.remove('active');
+                        });
+                    });
+                }
+            }
+        })();
+    </script>
+    
+    
