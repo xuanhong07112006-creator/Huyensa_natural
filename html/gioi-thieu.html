@@ -1,22 +1,104 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>body { background-color: #FDFBF7; }</style>
+    <style>body { background-color: #FDFBF7; 
+    background-image: url(../image/96bbc1ce-85c3-4622-b3ee-e38bbe342858.png)
+    
+    }</style>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    /* Áp dụng font cho toàn bộ trang */
+    font-family: 'Montserrat',sans-serif;
+    
+    
+  }
+  
+</style>
+
 </head>
 <body class="p-8 md:p-20">
+    <nav class="fixed top-0 left-0 right-0 z-50  md:px-20 flex justify-between items-center bg-white shadow-sm">
+   <a href="chính.HTML" class="flex items-center">
+    <!-- Thay đổi đường dẫn src="..." tới file ảnh logo thực tế của bạn -->
+    <img src="../image/logo.final1 (1).png" alt="Logo Huyền Sa" class="h-20 w-auto object-contain">
+</a>
+    
+    <div class="space-x-8 font-medium text-gray-700 hidden md:flex">
+        <a href="chính.HTML" class="hover:text-pink-700">TRANG CHỦ</a>
+        <a href="gioi-thieu.html" class="text-pink-700">GIỚI THIỆU</a>
+        <a href="san-pham.html" class="hover:text-pink-700">SẢN PHẨM</a>
+        <a href="lien-he.html" class="hover:text-pink-700">LIÊN HỆ</a>
+    </div>
+
+    <div class="flex items-center space-x-4">
+        
+        </a>
+        <a href="mua-ngay.html" class="bg-[#58161A] text-white px-5 py-2 rounded-full hover:bg-pink-700 transition">
+            Mua ngay
+        </a>
+    </div>
+</nav>
     <div class="max-w-3xl mx-auto">
         <a href="chính.HTML" class="text-gray-500 hover:text-[#58161A] mb-8 inline-block">← Quay về trang chủ</a>
 
-        <h2 class="text-gray-400 uppercase tracking-widest text-sm mb-2">CÂU CHUYỆN THƯƠNG HIỆU</h2>
-        <h1 class="text-5xl font-semibold text-[#58161A] mb-8">Huyền Sa<br>Naturals</h1>
+        <h2 class="uppercase tracking-widest text-sm mb-2" style="color: oklch(0.75 0.15 55);">
+    CÂU CHUYỆN THƯƠNG HIỆU
+</h2>
+        <h1 class="text-5xl font-semibold mb-8">
+    <span style="color: oklch(.12 .04 30 / 1);">Huyền Sa</span><br>
+    
+    <span class="text-pink-700">Naturals</span>
+</h1>
         
-        <div class="space-y-6 text-gray-700 leading-relaxed text-justify">
-            <p>Huyền Sa Naturals ra đời từ niềm đam mê sâu sắc với những giá trị tinh khiết của đất Việt. Chúng tôi tin rằng vẻ đẹp thực sự đến từ sự kết nối hài hòa với thiên nhiên — không phải từ những hóa chất đắt đỏ hay quy trình phức tạp.</p>
-            <p>Từ những cánh đồng lúa mênh mông bên dòng Mekong ở An Giang, nơi gạo lứt huyết rồng được nuôi dưỡng bởi phù sa phì nhiêu và ánh nắng miền Tây, chúng tôi tìm thấy nguồn cảm hứng và nguyên liệu quý giá cho dòng sản phẩm chăm sóc da của mình.</p>
-            <p>Mỗi sản phẩm là sự chắt lọc tinh hoa từ truyền thống kết hợp với công nghệ hiện đại. Từ những hạt gạo lứt huyết rồng quý hiếm đến bao bì thân thiện môi trường — chúng tôi chăm chút từng công đoạn để mang đến trải nghiệm tốt nhất cho bạn.</p>
-        </div>
+       <div class="space-y-5 leading-relaxed text-[18px] font-sans" 
+     style="color: oklch(0.28 0.1 33.07);">
+    <p>Huyền Sa Naturals ra đời từ niềm đam mê sâu sắc với những giá trị tinh khiết của đất Việt. Chúng tôi tin rằng vẻ đẹp thực sự đến từ sự kết nối hài hòa với thiên nhiên — không phải từ những hóa chất đắt đỏ hay quy trình phức tạp.</p>
+    <p>Từ những cánh đồng lúa mênh mông bên dòng Mekong ở An Giang, nơi gạo lứt huyết rồng được nuôi dưỡng bởi phù sa phì nhiêu và ánh nắng miền Tây, chúng tôi tìm thấy nguồn cảm hứng và nguyên liệu quý giá cho dòng sản phẩm chăm sóc da của mình.</p>
+    <p>Mỗi sản phẩm là sự chắt lọc tinh hoa từ truyền thống kết hợp với công nghệ hiện đại. Từ những hạt gạo lứt huyết rồng quý hiếm đến bao bì thân thiện môi trường — chúng tôi chăm chút từng công đoạn để mang đến trải nghiệm tốt nhất cho bạn.</p>
+</div>
     </div>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
 </body>
 </html>

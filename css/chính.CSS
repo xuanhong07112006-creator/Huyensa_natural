@@ -327,10 +327,11 @@ header .logo img {
     letter-spacing: 0.5px;
 }
 .card-box p {
-    font-size: 14px;
+    font-size: 18px;
     color: var(--text-muted);
     line-height: 1.6;
 }
+
 
 /* ==========================================================================
    5. RESPONSIVE MEDIA QUERIES (TỐI ƯU HOÀN TOÀN CHO ĐIỆN THOẠI & LAPTOP NHỎ)
@@ -1454,8 +1455,8 @@ body {
 
 /* Đoạn mô tả ngắn */
 .product-info-horizontal .description {
-    font-family: 'Inter', sans-serif;
-    font-size: 14.5px;
+    font-family: 'montserrat', sans-serif;
+    font-size: 16px;
     color: #6B5E53 !important;
     line-height: 1.6;
     margin: 0 0 20px 0;
@@ -1469,8 +1470,8 @@ body {
 }
 
 .features-list li {
-    font-family: 'Inter', sans-serif;
-    font-size: 14.5px;
+    font-family: 'montserrsf', sans-serif;
+    font-size: 16.5px;
     color: #50210d;
     margin-bottom: 8px;
     display: flex;
